@@ -1,7 +1,7 @@
 <script setup>
 const MAX_HOURS      = 1400
 const MAX_MARGIN     = 88000
-const MAX_INVESTMENT = 4500
+const MAX_INVESTMENT = 6500
 
 function fmt(val, type) {
   if (type === 'hours') return val.toLocaleString('nl-NL') + 'h'
@@ -33,7 +33,7 @@ const laura = {
   bg: 'rgba(124, 58, 237, 0.08)',
   hours: 1400,
   margin: 88000,
-  investment: 4500,
+  investment: 6500,
 }
 
 const stats = [
