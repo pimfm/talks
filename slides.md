@@ -200,3 +200,9 @@ layout: none
 ---
 
 <TaxTitleSlide />
+
+---
+layout: none
+---
+
+<CharactersSlide />

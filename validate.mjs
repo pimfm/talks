@@ -121,6 +121,20 @@ const taxLogoLoaded = await page.locator('.tax-logo').evaluate(el => el.naturalW
 check('Tax logo loaded', taxLogoLoaded);
 
 // ═══════════════════════════════════════════════════════════
+// Slide 4 — Characters
+// ═══════════════════════════════════════════════════════════
+console.log('\n── Slide 4 — Characters ────────────────────────────────────\n');
+await nav(4);
+await shot('s4-characters');
+
+check('Characters slide renders', await page.locator('.characters-slide').isVisible());
+check('DJ card present', await page.locator('.card-dj').isVisible());
+check('Teacher card present', await page.locator('.card-teacher').isVisible());
+check('"Richard" name visible', (await page.locator('.char-name').first().textContent()).includes('Richard'));
+check('"Laura" name visible', (await page.locator('.char-name').last().textContent()).includes('Laura'));
+check('Stat pips rendered', await page.locator('.pip').count() >= 10);
+
+// ═══════════════════════════════════════════════════════════
 await browser.close();
 
 console.log(`\n── Result: ${pass} passed, ${fail} failed ──────────────────────\n`);
