@@ -1,8 +1,9 @@
 package fm.pim
 
 import fm.pim.tax.AangifteInput
+import fm.pim.tax.FY2026
 import fm.pim.tax.TaxReport
-import fm.pim.tax.nl.box1.kiaGeneric
+import fm.pim.tax.nl.box1.kia
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -16,33 +17,36 @@ import kotlin.test.assertEquals
 class KIATest {
 
     @Test
-    fun `investment below threshold gives no KIA`() {
-        assertEquals(0L, kiaGeneric(2900L))
-        assertEquals(0L, kiaGeneric(0L))
+    fun `investment at or below threshold gives no KIA`() {
+        with(FY2026) {
+            assertEquals(0L, kia(2900L))
+            assertEquals(0L, kia(0L))
+        }
     }
 
     @Test
-    fun `investment in first bracket gives 28 percent`() {
-        // €6500 * 0.28 = 1820
-        assertEquals(1820L, kiaGeneric(6500L))
+    fun `investment in flat rate bracket gives 28 percent capped at max`() {
+        with(FY2026) {
+            assertEquals(1820L, kia(6500L))      // 6500 * 0.28 = 1820
+            assertEquals(20072L, kia(100000L))   // 100000 * 0.28 = 28000, capped at 20072
+        }
     }
 
     @Test
-    fun `investment in fixed bracket gives 20072`() {
-        assertEquals(20072L, kiaGeneric(100000L))
-    }
-
-    @Test
-    fun `investment in tapering bracket`() {
-        // €200000 investment: 20072 - (200000 - 132746) * 0.0756
-        val expected = (20072 - (200000 - 132746) * 0.0756).toLong()
-        assertEquals(expected, kiaGeneric(200000L))
+    fun `investment in tapering bracket reduces KIA`() {
+        with(FY2026) {
+            // 20072 - (200000 - 132746) * 0.0756
+            val expected = (20072 - (200000 - 132746) * 0.0756).toLong()
+            assertEquals(expected, kia(200000L))
+        }
     }
 
     @Test
     fun `very large investment gives no KIA`() {
-        assertEquals(0L, kiaGeneric(400000L))
-        assertEquals(0L, kiaGeneric(1000000L))
+        with(FY2026) {
+            assertEquals(0L, kia(400000L))
+            assertEquals(0L, kia(1000000L))
+        }
     }
 
     @Test

@@ -1,8 +1,9 @@
 package fm.pim
 
 import fm.pim.tax.AangifteInput
+import fm.pim.tax.FY2026
 import fm.pim.tax.TaxReport
-import fm.pim.tax.nl.box1.kiaGeneric
+import fm.pim.tax.nl.box1.kia
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -37,37 +38,37 @@ class EdgeCaseTest {
 
     @Test
     fun `investment at KIA lower boundary 2900 gives no KIA`() {
-        assertEquals(0L, kiaGeneric(2900L))
+        assertEquals(0L, with(FY2026) { kia(2900L) })
     }
 
     @Test
     fun `investment just above KIA lower boundary gives KIA`() {
-        val kia = kiaGeneric(2901L)
+        val kia = with(FY2026) { kia(2901L) }
         assertTrue(kia > 0L, "Investment of 2901 should give KIA")
     }
 
     @Test
     fun `investment at second KIA bracket boundary 71683 gives fixed KIA`() {
         // At 71683, still in sliding scale — 71683 * 0.28 < 20072
-        val kia = kiaGeneric(71683L)
+        val kia = with(FY2026) { kia(71683L) }
         assertEquals((71683 * 0.28).toLong(), kia)
     }
 
     @Test
     fun `investment at third KIA bracket boundary 132746 gives 20072`() {
-        assertEquals(20072L, kiaGeneric(132746L))
+        assertEquals(20072L, with(FY2026) { kia(132746L) })
     }
 
     @Test
     fun `investment at fourth KIA bracket boundary 398236 is approximately zero`() {
-        val kia = kiaGeneric(398236L)
+        val kia = with(FY2026) { kia(398236L) }
         assertTrue(kia >= 0L, "KIA at 398236 should be >= 0")
         assertTrue(kia <= 100L, "KIA at 398236 should be near zero, was $kia")
     }
 
     @Test
     fun `investment just over upper bound 398237 gives zero KIA`() {
-        assertEquals(0L, kiaGeneric(398237L))
+        assertEquals(0L, with(FY2026) { kia(398237L) })
     }
 
     @Test

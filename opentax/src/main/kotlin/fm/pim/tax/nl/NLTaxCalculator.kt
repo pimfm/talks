@@ -64,7 +64,7 @@ object NLTaxCalculator {
         val kiaAmount = input.investment?.let { inv ->
             either {
                 ensure(inv >= 0) { TaxError.InvestmentOutOfRange(inv) }
-                kiaGeneric(inv)
+                kia(inv)
             }.fold({ 0L }, { it })
         } ?: 0L
         val forAmount = if (this is FY2022) {
