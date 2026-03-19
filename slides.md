@@ -590,16 +590,6 @@ With FY2022 and NL in scope, Laura's FOR compiles and returns €8.307. Switch t
 layout: none
 ---
 
-<ThankYouSlide />
-
-<!--
-Thank you! Happy to take any questions.
--->
-
----
-layout: none
----
-
 <ContextParamsSlide />
 
 ---
@@ -613,6 +603,16 @@ layout: none
 ---
 
 <ContextForTaxYearSlide />
+
+---
+layout: none
+---
+
+<ThankYouSlide />
+
+<!--
+Thank you! Happy to take any questions.
+-->
 
 ---
 layout: none
