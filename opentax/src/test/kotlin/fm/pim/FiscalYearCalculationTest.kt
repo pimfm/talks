@@ -95,4 +95,25 @@ class FiscalYearCalculationTest {
         assertTrue(fiscalYearOf(2025) is FY2025)
         assertTrue(fiscalYearOf(2026) is FY2026)
     }
+
+    @Test
+    fun `KIA threshold differs per fiscal year`() {
+        // FY2022 threshold is 2401 — investment of 2402 qualifies
+        val kia2022 = with(FY2022) { kia(2402L) }
+        assertTrue(kia2022 > 0L, "2402 should give KIA in FY2022 (threshold=2401)")
+
+        // FY2026 threshold is 2900 — investment of 2402 does NOT qualify
+        val kia2026 = with(FY2026) { kia(2402L) }
+        assertEquals(0L, kia2026, "2402 should give no KIA in FY2026 (threshold=2900)")
+    }
+
+    @Test
+    fun `KIA max deduction increases each year`() {
+        // At a large investment (€150_000) we should be at or near maxFixed for each year
+        val maxFixed2022 = with(FY2022) { kiaBrackets().maxFixed }
+        val maxFixed2026 = with(FY2026) { kiaBrackets().maxFixed }
+        assertTrue(maxFixed2026 > maxFixed2022, "Max KIA deduction should increase from 2022 to 2026")
+        assertEquals(17841L, maxFixed2022)
+        assertEquals(20072L, maxFixed2026)
+    }
 }
