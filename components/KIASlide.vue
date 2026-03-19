@@ -9,14 +9,16 @@
       <div class="code-block">
         <div class="code-header">
           <span class="file">KIA.kt</span>
-          <span class="tag">context(year: FY2026)</span>
+          <span class="tag">context(year: FiscalYear)</span>
         </div>
-        <pre><code><span class="kw">context</span>(<span class="id">year</span>: <span class="type">FY2026</span>)
-<span class="kw">fun</span> <span class="fn">kia</span>(investment: <span class="type">Long</span>): <span class="type">Long</span> = <span class="kw">when</span> {
-  investment &lt;= <span class="num">2_900</span>  -&gt; <span class="num">0L</span>               <span class="comment">// below threshold</span>
-  investment &lt;= <span class="num">71_683</span> -&gt; (investment * <span class="num">0.28</span>).toLong()
-  <span class="comment">// ...two more brackets...</span>
-  <span class="kw">else</span>                   -&gt; <span class="num">0L</span>               <span class="comment">// above ceiling</span>
+        <pre><code><span class="kw">context</span>(<span class="id">year</span>: <span class="type">FiscalYear</span>)
+<span class="kw">fun</span> <span class="fn">kia</span>(investment: <span class="type">Long</span>): <span class="type">Long</span> {
+  <span class="kw">val</span> b = <span class="fn">kiaBrackets</span>()    <span class="comment">// FY2022..FY2026 — different per year</span>
+  <span class="kw">return when</span> {
+    investment &lt;= b.threshold    -&gt; <span class="num">0L</span>
+    investment &lt;= b.phaseOutStart -&gt; minOf((investment * b.flatRate).toLong(), b.maxFixed)
+    <span class="kw">else</span>                          -&gt; <span class="num">0L</span>
+  }
 }</code></pre>
       </div>
 

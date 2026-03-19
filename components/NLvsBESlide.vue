@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="deductions-note">+ Zelfstandigenaftrek<br/>+ MKB-vrijstelling<br/>+ KIA</div>
-          <div class="country-tax">≈ €31,789</div>
+          <div class="country-tax">€31,791</div>
           <div class="country-eff">~36.1% effectief</div>
         </div>
         <div class="vs-col">vs</div>
@@ -34,12 +34,12 @@
             <div class="schijf-row"><span class="schijf-label">Boven</span><span class="schijf-rate purple">50%</span></div>
           </div>
           <div class="deductions-note">No entrepreneur deductions</div>
-          <div class="country-tax">≈ €37,900</div>
-          <div class="country-eff">~43.1% effectief</div>
+          <div class="country-tax">€37,815</div>
+          <div class="country-eff">~43.0% effectief</div>
         </div>
       </div>
       <div class="diff-banner">
-        Laura pays ~€6,111 less per year in the Netherlands due to entrepreneur deductions
+        Laura pays €6,024 less per year in the Netherlands due to entrepreneur deductions
       </div>
     </div>
   </div>

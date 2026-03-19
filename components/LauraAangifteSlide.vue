@@ -35,7 +35,7 @@
         <div class="section-sep">Schijven 2026</div>
         <div class="row schijf">
           <span>≤€38,441 × 36.97%</span>
-          <span class="tax-amount">€14,209</span>
+          <span class="tax-amount">€14,211</span>
         </div>
         <div class="row schijf">
           <span>€35,516 × 49.50%</span>
@@ -43,7 +43,7 @@
         </div>
         <div class="row total">
           <span>Totale belasting</span>
-          <span class="total-amount">≈ €31,789</span>
+          <span class="total-amount">€31,791</span>
         </div>
       </div>
     </div>
