@@ -613,6 +613,16 @@ layout: none
 
 ---
 layout: none
+---
+
+<ThankYouSlide />
+
+<!--
+Thank you! Happy to take any questions.
+-->
+
+---
+layout: none
 clicks: 2
 ---
 
@@ -626,16 +636,6 @@ With this type-safety, I hope we could one day open-source the Dutch and Europea
 [click]
 
 And for you — I hope concepts like Arrow Raise DSL, Context Parameters, and Rich Errors help make the types in your projects richer, and have more flows handled by the compiler.
--->
-
----
-layout: none
----
-
-<ThankYouSlide />
-
-<!--
-Thank you! Happy to take any questions.
 -->
 
 ---
