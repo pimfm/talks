@@ -205,4 +205,130 @@ layout: none
 layout: none
 ---
 
+<BoxSystemSlide />
+
+---
+layout: none
+---
+
 <CharactersSlide />
+
+---
+layout: none
+---
+
+<CharacterDetailsSlide />
+
+---
+layout: none
+---
+
+<TypeSafetySlide />
+
+---
+layout: none
+---
+
+<RaiseDSLSlide />
+
+---
+layout: none
+---
+
+<RaiseUsageSlide />
+
+---
+layout: none
+---
+
+<RaiseVsExceptionsSlide />
+
+---
+layout: none
+---
+
+<ContextParamsSlide />
+
+---
+layout: none
+---
+
+<ContextParamsSyntaxSlide />
+
+---
+layout: none
+---
+
+<ContextForTaxYearSlide />
+
+---
+layout: none
+---
+
+<ZelfstandigenAftrekSlide />
+
+---
+layout: none
+---
+
+<FORSlide />
+
+---
+layout: none
+---
+
+<CompileErrorSlide />
+
+---
+layout: none
+---
+
+<RichardAangifteSlide />
+
+---
+layout: none
+---
+
+<LauraAangifteSlide />
+
+---
+layout: none
+---
+
+<KIASlide />
+
+---
+layout: none
+---
+
+<CombinedPowerSlide />
+
+---
+layout: none
+---
+
+<NLvsBESlide />
+
+---
+layout: none
+---
+
+<TaxReportSlide />
+
+---
+layout: none
+---
+
+<APIRoutesSlide />
+
+---
+layout: none
+---
+
+<ProductionSlide />
+
+---
+layout: none
+---
+
+<SummarySlide />

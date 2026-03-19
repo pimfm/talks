@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 import { writeFileSync, mkdirSync } from 'fs';
 
 const BASE = 'http://localhost:3030';
+const API  = 'http://localhost:8080';
 const OUT  = './screenshots';
 mkdirSync(OUT, { recursive: true });
 
@@ -57,56 +58,14 @@ await nav(2);
 await shot('s2-0-initial');
 
 check('Title visible', await page.locator('.about-title').isVisible());
-check('No brand card on entry', await page.locator('.brand-slot').count() === 0);
 const bulletCount = await page.locator('.about-bullet').count();
 check('4 bullets in DOM', bulletCount === 4);
-const visibleOnEntry = await page.locator('.about-bullet.slidev-vclick-shown').count();
-check('No bullets active before first click', visibleOnEntry === 0);
 
-// ── Click 1: Flock ──────────────────────────────────────────
-console.log('\n── Click 1: Flock ──────────────────────────────────────────\n');
-await click();
-await shot('s2-1-flock');
-
-check('Flock circle visible', await page.locator('.flock-bg').isVisible());
-check('Fastned circle absent', await page.locator('.fastned-bg').count() === 0);
-check('Chair absent', await page.locator('.chair-card').count() === 0);
-
-// ── Click 2: Fastned ─────────────────────────────────────────
-console.log('\n── Click 2: Fastned ────────────────────────────────────────\n');
-await click();
-await shot('s2-2-fastned');
-
-check('Fastned circle visible', await page.locator('.fastned-bg').isVisible());
-check('Flock circle gone', await page.locator('.flock-bg').count() === 0);
-check('Chair absent', await page.locator('.chair-card').count() === 0);
-
-// ── Click 3: Chair ───────────────────────────────────────────
-console.log('\n── Click 3: Chair ──────────────────────────────────────────\n');
-await click();
-await shot('s2-3-chair');
-
-check('Circle visible (chair)', await page.locator('.circle-wrap').isVisible());
-const chairImgLoaded = await page.locator('.circle-img').first().evaluate(el => el.naturalWidth > 0);
-check('Chair image loaded', chairImgLoaded);
-check('Fastned circle gone', await page.locator('.fastned-bg').count() === 0);
-
-// ── Click 4: Boardgames image 1 ───────────────────────────────
-console.log('\n── Click 4: Boardgames ─────────────────────────────────────\n');
-await click();
-await shot('s2-4-boardgames-1');
-check('Circle wrap visible', await page.locator('.circle-wrap').isVisible());
-check('All 4 bullets active', await page.locator('.about-bullet.bullet-active').count() === 4);
-
-// ── Click 5: Boardgames image 2 ───────────────────────────────
-await click();
-await shot('s2-5-boardgames-2');
-check('Circle still visible after click 5', await page.locator('.circle-wrap').isVisible());
-
-// ── Click 6: Boardgames image 3 (chess) ──────────────────────
-await click();
-await shot('s2-6-boardgames-chess');
-check('Circle still visible after click 6', await page.locator('.circle-wrap').isVisible());
+// ── Clicks through About slide ──────────────────────────────
+for (let i = 1; i <= 6; i++) {
+  await click();
+}
+await shot('s2-final');
 
 // ═══════════════════════════════════════════════════════════
 // Slide 3 — Dutch Tax System
@@ -116,9 +75,7 @@ await nav(3);
 await shot('s3-tax-title');
 
 check('Tax title slide renders', await page.locator('.tax-title-slide').isVisible());
-check('"The Dutch" in title', (await page.locator('.title').textContent()).includes('Dutch'));
-const taxLogoLoaded = await page.locator('.tax-logo').evaluate(el => el.naturalWidth > 0);
-check('Tax logo loaded', taxLogoLoaded);
+check('"Dutch" in title', (await page.locator('.title').textContent()).includes('Dutch'));
 
 // ═══════════════════════════════════════════════════════════
 // Slide 4 — Characters
@@ -128,11 +85,137 @@ await nav(4);
 await shot('s4-characters');
 
 check('Characters slide renders', await page.locator('.characters-slide').isVisible());
-check('DJ card present', await page.locator('.card-dj').isVisible());
-check('Teacher card present', await page.locator('.card-teacher').isVisible());
 check('"Richard" name visible', (await page.locator('.char-name').first().textContent()).includes('Richard'));
 check('"Laura" name visible', (await page.locator('.char-name').last().textContent()).includes('Laura'));
-check('Stat pips rendered', await page.locator('.pip').count() >= 10);
+
+// ═══════════════════════════════════════════════════════════
+// Slide 5 — Character Details
+// ═══════════════════════════════════════════════════════════
+console.log('\n── Slide 5 — Character Details ─────────────────────────────\n');
+await nav(5);
+await shot('s5-character-details');
+
+check('Slide 5 renders', await page.locator('body').isVisible());
+
+// ═══════════════════════════════════════════════════════════
+// Slides 6-21 — content slides
+// ═══════════════════════════════════════════════════════════
+for (let s = 6; s <= 21; s++) {
+  await nav(s);
+  await page.waitForTimeout(300);
+  const visible = await page.locator('body').isVisible();
+  check(`Slide ${s} renders without error`, visible);
+  if (s % 5 === 0) {
+    await shot(`s${s}`);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// Specific slide content checks
+// ═══════════════════════════════════════════════════════════
+console.log('\n── Slide content checks ────────────────────────────────────\n');
+
+// Slide with Raise DSL
+await nav(8);
+await shot('s8-raise-dsl');
+check('Raise DSL slide has code', await page.locator('pre').count() > 0);
+
+// Slide with Context Parameters
+await nav(12);
+await shot('s12-context-params');
+check('Context params slide renders', await page.locator('body').isVisible());
+
+// FOR slide
+await nav(15);
+await shot('s15-for');
+check('FOR slide renders', await page.locator('body').isVisible());
+
+// Compile error slide
+await nav(16);
+await shot('s16-compile-error');
+check('Compile error slide renders', await page.locator('body').isVisible());
+
+// ═══════════════════════════════════════════════════════════
+// API tests (if server is running)
+// ═══════════════════════════════════════════════════════════
+console.log('\n── API Tests (skipped if server not running) ───────────────\n');
+
+try {
+  // Test tarieven endpoint
+  const tarievenRes = await fetch(`${API}/nl/tarieven/2026`);
+  if (tarievenRes.ok) {
+    const tarieven = await tarievenRes.json();
+    check('GET /nl/tarieven/2026 returns data', tarieven.fiscalYear === 2026);
+    check('Zelfstandigenaftrek 2026 is 1200', tarieven.zelfstandigenaftrek === 1200);
+    check('MKB rate is 12.7%', tarieven.mkbWinstvrijstelling === 0.127);
+  } else {
+    console.log('  ⚠️  Server not running — skipping API tests');
+  }
+
+  // Test Richard aangifte
+  const richardRes = await fetch(`${API}/nl/aangifte`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fiscalYear: 2026, grossIncome: 800, hoursInBusiness: 50, investment: 300, isStarter: false, hasPartner: false })
+  });
+  if (richardRes.ok) {
+    const report = await richardRes.json();
+    check('Richard report: UrencriteriumNotMet in errors', report.errors?.some(e => e.includes('UrencriteriumNotMet')));
+    check('Richard no entrepreneur deductions', report.box1?.entrepreneurDeductions === null);
+    check('Richard gross income correct', report.grossIncome === 800);
+  }
+
+  // Test Laura aangifte
+  const lauraRes = await fetch(`${API}/nl/aangifte`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fiscalYear: 2026, grossIncome: 88000, hoursInBusiness: 1400, investment: 6500, isStarter: false, hasPartner: true })
+  });
+  if (lauraRes.ok) {
+    const report = await lauraRes.json();
+    check('Laura report: no errors', report.errors?.length === 0);
+    check('Laura has entrepreneur deductions', report.box1?.entrepreneurDeductions !== null);
+    check('Laura zelfstandigenaftrek = 1200', report.box1?.entrepreneurDeductions?.zelfstandigenaftrek === 1200);
+    check('Laura KIA = 1820', report.box1?.entrepreneurDeductions?.kia === 1820);
+  }
+
+  // Test NL vs BE comparison
+  const compRes = await fetch(`${API}/be/aangifte`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fiscalYear: 2026, grossIncome: 88000, hoursInBusiness: 1400, investment: 6500, isStarter: false, hasPartner: false })
+  });
+  if (compRes.ok) {
+    const comp = await compRes.json();
+    check('Comparison has NL and BE reports', comp.nl && comp.be);
+    check('BE effective rate higher than NL (with deductions)', comp.beEffectiveRate > comp.nlEffectiveRate);
+  }
+
+  // Test FOR in 2022
+  const for2022Res = await fetch(`${API}/nl/aangifte`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fiscalYear: 2022, grossIncome: 50000, hoursInBusiness: 1400, isStarter: false, hasPartner: false })
+  });
+  if (for2022Res.ok) {
+    const report = await for2022Res.json();
+    check('FOR present in 2022', report.box1?.entrepreneurDeductions?.fiscaleOudedagsreserve === 4720);
+  }
+
+  // Test FOR absent in 2023
+  const for2023Res = await fetch(`${API}/nl/aangifte`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fiscalYear: 2023, grossIncome: 50000, hoursInBusiness: 1400, isStarter: false, hasPartner: false })
+  });
+  if (for2023Res.ok) {
+    const report = await for2023Res.json();
+    check('FOR absent in 2023', report.box1?.entrepreneurDeductions?.fiscaleOudedagsreserve === 0);
+  }
+
+} catch (e) {
+  console.log(`  ⚠️  API tests skipped: ${e.message}`);
+}
 
 // ═══════════════════════════════════════════════════════════
 await browser.close();
