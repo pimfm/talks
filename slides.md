@@ -607,6 +607,23 @@ layout: none
 
 ---
 layout: none
+clicks: 2
+---
+
+<ConclusionSlide :clicks="$clicks" />
+
+<!--
+[click]
+
+With this type-safety, I hope we could one day open-source the Dutch and European tax system — so calculations are available programmatically, and auditable by everyone.
+
+[click]
+
+And for you — I hope concepts like Arrow Raise DSL, Context Parameters, and Rich Errors help make the types in your projects richer, and have more flows handled by the compiler.
+-->
+
+---
+layout: none
 ---
 
 <ThankYouSlide />
