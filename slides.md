@@ -607,6 +607,12 @@ layout: none
 
 ---
 layout: none
+---
+
+<SummarySlide />
+
+---
+layout: none
 clicks: 2
 ---
 
@@ -697,12 +703,6 @@ layout: none
 ---
 
 <ProductionSlide />
-
----
-layout: none
----
-
-<SummarySlide />
 
 ---
 layout: none
