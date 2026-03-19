@@ -518,6 +518,7 @@ with(FY2023) {
     // Compile error: FY2022
     // context not found
 }`,
+    errorLines: [4],
   },
   {
     focused: 'laura',
