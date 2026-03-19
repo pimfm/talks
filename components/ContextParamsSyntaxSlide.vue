@@ -3,7 +3,7 @@
     <div class="bg-grid" />
     <div class="orb" />
     <div class="slide-inner">
-      <div class="eyebrow">KOTLIN 2.2+ FEATURE</div>
+      <div class="eyebrow">KOTLIN 2.3 — EXPERIMENTAL</div>
       <h2 class="title">Context parameter <span class="accent">syntax</span></h2>
       <div class="code-steps">
         <div class="step">

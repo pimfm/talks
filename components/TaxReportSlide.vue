@@ -21,12 +21,12 @@
     },
     <span class="jk">"taxableIncome"</span>: <span class="jn">73957</span>,
     <span class="jk">"schijven"</span>: [
-      { <span class="jk">"bracket"</span>: <span class="js">"≤€38441"</span>, <span class="jk">"rate"</span>: <span class="jn">0.3697</span>, <span class="jk">"tax"</span>: <span class="jn">14209</span> },
+      { <span class="jk">"bracket"</span>: <span class="js">"≤€38441"</span>, <span class="jk">"rate"</span>: <span class="jn">0.3697</span>, <span class="jk">"tax"</span>: <span class="jn">14211</span> },
       { <span class="jk">"bracket"</span>: <span class="js">"&gt;38441"</span>,  <span class="jk">"rate"</span>: <span class="jn">0.4950</span>, <span class="jk">"tax"</span>: <span class="jn">17580</span> }
     ]
   },
-  <span class="jk">"totalTax"</span>: <span class="jn">31789</span>,
-  <span class="jk">"effectiveRate"</span>: <span class="jn">0.361</span>
+  <span class="jk">"totalTax"</span>: <span class="jn">31791</span>,
+  <span class="jk">"effectiveRate"</span>: <span class="jn">0.3613</span>
 }</code></pre>
       </div>
     </div>
