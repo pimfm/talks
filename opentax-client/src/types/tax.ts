@@ -1,4 +1,12 @@
-// Mirror of Kotlin API types — fully typed
+export interface AangifteInput {
+  fiscalYear: number
+  grossIncome: number
+  hoursInBusiness?: number
+  investment?: number
+  isStarter: boolean
+  hasPartner: boolean
+  box3Assets?: number
+}
 
 export interface SchijfApplication {
   bracket: string
@@ -41,49 +49,11 @@ export interface TaxReport {
   errors: string[]
 }
 
-export interface SchijfTarief {
-  upTo: number | null
-  rate: number
-  description: string
-}
-
 export interface TarievenReport {
   fiscalYear: number
-  box1Schijven: SchijfTarief[]
+  box1Schijven: Array<{ upTo: number | null; rate: number; label: string }>
   zelfstandigenaftrek: number
   startersaftrek: number
   mkbWinstvrijstelling: number
   box3FictitiousRate: number
 }
-
-export interface BEReport {
-  grossIncome: number
-  taxableIncome: number
-  schijven: SchijfApplication[]
-  totalTax: number
-  effectiveRate: number
-}
-
-export interface ComparisonReport {
-  fiscalYear: string
-  grossIncome: number
-  nl: TaxReport
-  be: BEReport
-  difference: number
-  nlEffectiveRate: number
-  beEffectiveRate: number
-}
-
-export interface AangifteInput {
-  fiscalYear: number
-  grossIncome: number
-  hoursInBusiness?: number
-  investment?: number
-  isStarter: boolean
-  hasPartner: boolean
-  partner?: { grossIncome: number }
-  ownHome?: { eigenwoningforfait: number; hypotheekrenteaftrek: number }
-  box3Assets?: number
-}
-
-export type FiscalYear = 2022 | 2023 | 2024 | 2025 | 2026

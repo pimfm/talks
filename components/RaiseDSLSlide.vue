@@ -34,8 +34,8 @@
           </div>
           <div class="good-list">
             <div class="good-item">Error type is in the function signature</div>
-            <div class="good-item">Compiler forces you to handle errors</div>
-            <div class="good-item">No exceptions, no null</div>
+            <div class="good-item">Caller must wrap in <code>either { }</code> to get a value</div>
+            <div class="good-item">No exceptions, no null, errors are values</div>
           </div>
         </div>
       </div>

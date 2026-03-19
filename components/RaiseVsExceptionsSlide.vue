@@ -28,7 +28,7 @@
 }</code></pre>
           <div class="good-list">
             <div class="benefit">Error type is part of the API</div>
-            <div class="benefit">Compiler tracks it everywhere</div>
+            <div class="benefit">IDE + compiler guide you to handle it</div>
             <div class="benefit">Composable with <code>either { }</code></div>
           </div>
         </div>

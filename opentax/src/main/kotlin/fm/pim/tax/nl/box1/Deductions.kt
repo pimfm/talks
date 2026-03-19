@@ -11,7 +11,7 @@ fun zelfstandigenaftrek(): Long = when (year) {
     is FY2026 -> 1200L
 }
 
-val startersaftrek: Long = 2123L
+const val STARTERSAFTREK: Long = 2123L
 
 context(year: FiscalYear)
 fun mkbWinstvrijstellingRate(): Double = when (year) {

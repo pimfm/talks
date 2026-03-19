@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktor)
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 group = "fm.pim"
@@ -35,4 +36,10 @@ dependencies {
     testImplementation(libs.testcontainers.core)
     testImplementation(libs.testcontainers.junit)
     testImplementation(libs.wiremock)
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("$rootDir/detekt.yml"))
 }

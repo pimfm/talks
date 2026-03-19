@@ -1,0 +1,35 @@
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+  WildcardImport:
+    active: false
+
+naming:
+  FunctionNaming:
+    active: false
+
+complexity:
+  LongMethod:
+    active: true
+    threshold: 30
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 10
+
+potential-bugs:
+  active: true
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: true
+  ThrowingExceptionsWithoutMessageOrCause:
+    active: true
+
+formatting:
+  active: false

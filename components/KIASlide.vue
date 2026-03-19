@@ -13,11 +13,10 @@
         </div>
         <pre><code><span class="kw">context</span>(<span class="id">year</span>: <span class="type">FY2026</span>)
 <span class="kw">fun</span> <span class="fn">kia</span>(investment: <span class="type">Long</span>): <span class="type">Long</span> = <span class="kw">when</span> {
-  investment &lt;= <span class="num">2_900</span>   -&gt; <span class="num">0L</span>
-  investment &lt;= <span class="num">71_683</span>  -&gt; (investment * <span class="num">0.28</span>).toLong()
-  investment &lt;= <span class="num">132_746</span> -&gt; <span class="num">20_072L</span>
-  investment &lt;= <span class="num">398_236</span> -&gt; (<span class="num">20_072</span> - (investment - <span class="num">132_746</span>) * <span class="num">0.0756</span>).toLong()
-  <span class="kw">else</span>                    -&gt; <span class="num">0L</span>
+  investment &lt;= <span class="num">2_900</span>  -&gt; <span class="num">0L</span>               <span class="comment">// below threshold</span>
+  investment &lt;= <span class="num">71_683</span> -&gt; (investment * <span class="num">0.28</span>).toLong()
+  <span class="comment">// ...two more brackets...</span>
+  <span class="kw">else</span>                   -&gt; <span class="num">0L</span>               <span class="comment">// above ceiling</span>
 }</code></pre>
       </div>
 

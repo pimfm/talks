@@ -10,15 +10,17 @@
           <p class="def-text">Type safety means the compiler prevents you from doing things that don't make sense for your data.</p>
           <div class="examples">
             <div class="example bad">
-              <div class="example-label bad-label">✗ runtime error</div>
-              <pre><code><span class="str">"hello"</span> + <span class="num">42</span>  <span class="comment">// ClassCastException</span>
-fiscaleOudedagsreserve(<span class="num">2023</span>)  <span class="comment">// abolished!</span></code></pre>
+              <div class="example-label bad-label">✗ wrong fiscal year — runtime surprise</div>
+              <pre><code><span class="comment">// What year is this FOR for? Nobody knows.</span>
+<span class="kw">fun</span> <span class="fn">berekenFOR</span>(<span class="id">winst</span>: <span class="type">Long</span>, <span class="id">year</span>: <span class="type">Int</span>): <span class="type">Long</span> = ...
+<span class="fn">berekenFOR</span>(<span class="num">50_000L</span>, <span class="num">2024</span>)  <span class="comment">// abolished in 2023!</span></code></pre>
             </div>
             <div class="example good">
-              <div class="example-label good-label">✓ compile error</div>
-              <pre><code><span class="kw">context</span>(<span class="type">year</span>: <span class="type">FY2022</span>)
+              <div class="example-label good-label">✓ wrong fiscal year — compile error</div>
+              <pre><code><span class="kw">context</span>(<span class="id">year</span>: <span class="type">FY2022</span>)
 <span class="kw">fun</span> <span class="fn">fiscaleOudedagsreserve</span>(<span class="id">winst</span>: <span class="type">Long</span>): <span class="type">Long</span>
-<span class="comment">// No FY2023 version — guaranteed at compile time</span></code></pre>
+<span class="comment">// with(FY2024) { fiscaleOudedagsreserve(50_000L) }</span>
+<span class="comment">// ^^^^^ COMPILE ERROR — no context(FY2024) exists</span></code></pre>
             </div>
           </div>
         </div>

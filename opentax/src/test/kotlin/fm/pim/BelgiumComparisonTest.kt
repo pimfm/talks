@@ -63,8 +63,8 @@ class BelgiumComparisonTest {
         assertTrue(report.be.totalTax > 0)
         assertTrue(report.nl.totalTax > 0)
         // BE has no entrepreneur deductions so usually higher effective rate for same gross
-        assertTrue(report.beEffectiveRate > report.nlEffectiveRate,
-            "BE effective rate (${report.beEffectiveRate}) should be higher than NL (${report.nlEffectiveRate}) for same gross with NL deductions")
+        val msg = "BE effective rate (${report.beEffectiveRate}) should be higher than NL (${report.nlEffectiveRate})"
+        assertTrue(report.beEffectiveRate > report.nlEffectiveRate, msg)
     }
 
     @Test

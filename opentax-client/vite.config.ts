@@ -1,18 +1,7 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: { '@': resolve(__dirname, 'src') }
-  },
-  server: {
-    port: 5173,
-    proxy: {
-      '/nl': 'http://localhost:8080',
-      '/be': 'http://localhost:8080',
-      '/profile': 'http://localhost:8080'
-    }
-  }
+  plugins: [react()],
+  server: { proxy: { '/api': { target: 'http://localhost:8080', rewrite: path => path.replace(/^\/api/, '') } } }
 })
