@@ -415,18 +415,6 @@ And here is what that looks like from Richard's perspective — a try/catch that
 layout: none
 ---
 
-<CharacterDetailsSlide />
-
----
-layout: none
----
-
-<TypeSafetySlide />
-
----
-layout: none
----
-
 <RaiseDSLSlide />
 
 ---
@@ -434,12 +422,6 @@ layout: none
 ---
 
 <RaiseUsageSlide />
-
----
-layout: none
----
-
-<RaiseVsExceptionsSlide />
 
 ---
 layout: none
