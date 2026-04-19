@@ -4,11 +4,22 @@ import arrow.core.Either
 import arrow.core.raise.Raise
 import arrow.core.raise.either
 import arrow.core.raise.recover
+import fm.pim.`<no name provided>`.zelfstandigenAftrek
 import kotlin.math.roundToLong
 
 data class NotEnoughHours(val actual: Int, val required: Int)
 
-context(raise: Raise<NotEnoughHours>)
+
+object € {
+
+}
+
+enum class TaxYear {
+    TAXYEAR2022,
+    TAXYEAR2023,
+}
+
+context(year: )
 fun zelfstandigenAftrek(
     hours: Int,
     income: Money
