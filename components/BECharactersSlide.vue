@@ -2,7 +2,7 @@
 const MAX_INKOMEN = 88000
 
 function fmt(val, type) {
-  if (type === 'euro') return '€' + val.toLocaleString('nl-BE')
+  if (type === 'euro') return '€' + val.toLocaleString('en-BE')
   return val
 }
 
@@ -10,8 +10,8 @@ const richard = {
   name: 'Richard',
   profession: 'DJ',
   status: 'Bijberoep',
+  statusLabel: 'secondary occupation',
   statusColor: '#f59e0b',
-  kbo: false,
   seed: 'Daan',
   color: '#c084fc',
   border: 'rgba(192, 132, 252, 0.45)',
@@ -25,8 +25,8 @@ const laura = {
   name: 'Laura',
   profession: 'Marketing Consultant',
   status: 'Hoofdberoep',
+  statusLabel: 'main occupation',
   statusColor: '#10b981',
-  kbo: true,
   seed: 'Laura',
   color: '#7c3aed',
   border: 'rgba(124, 58, 237, 0.5)',
@@ -44,7 +44,7 @@ const laura = {
     <div class="orb orb-r" />
 
     <div class="slide-inner">
-      <div class="eyebrow">MAAK KENNIS MET DE BELASTINGPLICHTIGEN</div>
+      <div class="eyebrow">MEET THE TAXPAYERS</div>
 
       <div class="cards-row">
         <template v-for="(char, i) in [richard, laura]" :key="char.name">
@@ -61,14 +61,14 @@ const laura = {
             <div class="profession-block">
               <span class="profession-label">{{ char.profession }}</span>
               <span class="status-badge" :style="{ color: char.statusColor, borderColor: char.statusColor + '66', background: char.statusColor + '18' }">
-                {{ char.status }}
+                {{ char.status }} · {{ char.statusLabel }}
               </span>
             </div>
 
             <div class="stats-list">
               <div class="stat-item">
                 <div class="stat-header">
-                  <span class="stat-label">Bruto inkomen</span>
+                  <span class="stat-label">Annual income</span>
                   <span class="stat-value" :style="{ color: char.color }">{{ fmt(char.inkomen, 'euro') }}</span>
                 </div>
                 <div class="bar-track">
@@ -78,18 +78,11 @@ const laura = {
 
               <div class="stat-item">
                 <div class="stat-header">
-                  <span class="stat-label">Investering</span>
+                  <span class="stat-label">Investment</span>
                   <span class="stat-value" :style="{ color: char.color }">{{ fmt(char.investering, 'euro') }}</span>
                 </div>
                 <div class="bar-track">
                   <div class="bar-fill" :style="{ width: Math.max(2, (char.investering / 6500) * 100) + '%', background: `linear-gradient(90deg, ${char.color}, ${char.color}88)`, boxShadow: `0 0 8px ${char.glow}` }" />
-                </div>
-              </div>
-
-              <div class="stat-item kbo">
-                <div class="stat-header">
-                  <span class="stat-label">KBO-registratie</span>
-                  <span class="kbo-badge" :class="char.kbo ? 'yes' : 'no'">{{ char.kbo ? 'Ja' : 'Nee' }}</span>
                 </div>
               </div>
             </div>
@@ -111,24 +104,20 @@ const laura = {
 .slide-inner { position: relative; z-index: 10; width: 100%; padding: 32px 64px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 0.18em; color: rgba(192,132,252,0.75); text-transform: uppercase; }
 .cards-row { display: flex; align-items: center; gap: 32px; width: 100%; justify-content: center; }
-.card { flex: 1; max-width: 320px; border: 1px solid; border-radius: 14px; padding: 24px 22px 22px; display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; overflow: hidden; }
+.card { flex: 1; max-width: 340px; border: 1px solid; border-radius: 14px; padding: 24px 22px 22px; display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; overflow: hidden; }
 .card-top-line { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
 .avatar-wrap { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; border: 2px solid; flex-shrink: 0; background: #0f0b1e; }
 .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .char-name { font-size: 26px; font-weight: 700; color: #e2e8f0; letter-spacing: -0.02em; margin-top: -2px; }
 .profession-block { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: -6px; }
 .profession-label { font-size: 15px; font-weight: 600; color: var(--c); letter-spacing: -0.01em; }
-.status-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border: 1px solid; border-radius: 20px; }
+.status-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 10px; border: 1px solid; border-radius: 20px; white-space: nowrap; }
 .stats-list { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; border-top: 1px solid rgba(30,58,95,0.5); padding-top: 14px; }
 .stat-item { display: flex; flex-direction: column; gap: 5px; }
-.stat-item.kbo { flex-direction: row; align-items: center; justify-content: space-between; }
 .stat-header { display: flex; justify-content: space-between; align-items: baseline; }
 .stat-label { font-size: 10px; font-weight: 500; color: #4a6280; letter-spacing: 0.06em; text-transform: uppercase; }
 .stat-value { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
 .bar-track { height: 4px; background: rgba(30,58,95,0.5); border-radius: 2px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 2px; }
-.kbo-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
-.kbo-badge.yes { color: #10b981; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); }
-.kbo-badge.no { color: #ef4444; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); }
 .amp { font-size: 52px; font-weight: 300; color: rgba(124,58,237,0.35); flex-shrink: 0; line-height: 1; user-select: none; }
 </style>

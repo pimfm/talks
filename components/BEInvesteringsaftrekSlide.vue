@@ -3,21 +3,21 @@
     <div class="bg-grid" />
     <div class="slide-inner">
       <div class="eyebrow">INVESTERINGSAFTREK — CROSS-BORDER</div>
-      <h2 class="title">Laura investeert <span class="accent">€ 6.500</span></h2>
+      <h2 class="title">Laura invests <span class="accent">€ 6,500</span></h2>
 
       <div class="code-block">
         <div class="code-header">
           <span class="file">Investeringsaftrek.kt</span>
         </div>
-        <pre><code><span class="comment">// NL — KIA (alle jaren)</span>
+        <pre><code><span class="comment">// NL — KIA (all years)</span>
 <span class="kw">context</span>(<span class="id">year</span>: <span class="type">FiscalYear</span>)
-<span class="kw">fun</span> <span class="fn">kia</span>(investment: <span class="type">Long</span>): <span class="type">Long</span>  <span class="comment">// 28% bij €6.500</span>
+<span class="kw">fun</span> <span class="fn">kia</span>(investment: <span class="type">Long</span>): <span class="type">Long</span>  <span class="comment">// 28% at €6,500</span>
 
-<span class="comment">// BE — Gewone aftrek (afgeschaft vanaf FJ2024)</span>
+<span class="comment">// BE — Gewone aftrek (abolished from FY2024)</span>
 <span class="kw">context</span>(<span class="id">year</span>: <span class="type">FY2023</span>)
 <span class="kw">fun</span> <span class="fn">gewoneInvesteringsaftrek</span>(investering: <span class="type">Long</span>): <span class="type">Long</span>  <span class="comment">// 8%</span>
 
-<span class="comment">// BE — Verhoogde aftrek (nieuw vanaf FJ2024)</span>
+<span class="comment">// BE — Verhoogde aftrek (new from FY2024)</span>
 <span class="kw">context</span>(<span class="id">year</span>: <span class="type">VerhoogdeInvesteringsaftrekJaar</span>)
 <span class="kw">fun</span> <span class="fn">verhoogdeInvesteringsaftrek</span>(investering: <span class="type">Long</span>, type: <span class="type">InvesteringsType</span>): <span class="type">Long</span></code></pre>
       </div>
@@ -25,25 +25,25 @@
       <div class="comparison">
         <div class="comp-card nl">
           <div class="comp-flag">🇳🇱</div>
-          <div class="comp-name">NL — KIA (FJ2026)</div>
-          <div class="comp-math">€6.500 × 28%</div>
-          <div class="comp-result">€ 1.820</div>
+          <div class="comp-name">NL — KIA (FY2026)</div>
+          <div class="comp-math">€6,500 × 28%</div>
+          <div class="comp-result">€ 1,820</div>
         </div>
 
         <div class="comp-card be-old">
           <div class="comp-flag">🇧🇪</div>
-          <div class="comp-name">BE — Gewone (FJ2023)</div>
-          <div class="comp-math">€6.500 × 8%</div>
+          <div class="comp-name">BE — Gewone aftrek (FY2023)</div>
+          <div class="comp-math">€6,500 × 8%</div>
           <div class="comp-result old-val">€ 520</div>
-          <div class="abolished-tag">Afgeschaft FJ2024</div>
+          <div class="abolished-tag">Abolished FY2024</div>
         </div>
 
         <div class="comp-card be-new">
           <div class="comp-flag">🇧🇪</div>
-          <div class="comp-name">BE — Verhoogde (FJ2024+)</div>
-          <div class="comp-math">€6.500 × 40% (digitalisering)</div>
-          <div class="comp-result new-val">€ 2.600</div>
-          <div class="better-tag">Beter dan KIA!</div>
+          <div class="comp-name">BE — Verhoogde aftrek (FY2024+)</div>
+          <div class="comp-math">€6,500 × 40% (digitalisation)</div>
+          <div class="comp-result new-val">€ 2,600</div>
+          <div class="better-tag">Better than NL KIA!</div>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
         <pre><code><span class="kw">with</span>(FY2024) {
     <span class="fn">gewoneInvesteringsaftrek</span>(6_500L)
     <span class="error-line">// Compile error: FY2023 context not found</span>
-    <span class="comment">// Gebruik verhoogdeInvesteringsaftrek(6_500L, DIGITALISERING)</span>
+    <span class="comment">// Use verhoogdeInvesteringsaftrek(6_500L, DIGITALISERING)</span>
 }</code></pre>
       </div>
     </div>
@@ -70,7 +70,7 @@
 .file { font-size: 12px; color: #a855f7; }
 pre { margin: 0; padding: 12px 16px; font-size: 12px; line-height: 1.65; }
 .comparison { display: flex; gap: 12px; }
-.comp-card { flex: 1; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; position: relative; }
+.comp-card { flex: 1; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
 .nl { background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.25); }
 .be-old { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); }
 .be-new { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); }

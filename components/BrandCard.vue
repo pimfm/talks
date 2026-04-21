@@ -25,7 +25,7 @@ const BOARDGAME_IMAGES = [
     <div v-else-if="brand === 'chair'" class="circle-wrap">
       <img
         class="circle-img"
-        src="https://www.muuto.com/globalassets/contentmedia/images/01.-lifestyle-images/january-25/fiber-soft-armchair-swivel-grey-refine-cognac-midst-conference-center-power-140-395-grey-low-res.jpg?width=600&amp;bgcolor=white&amp;format=jpg&amp;revision=638689830920000000"
+        src="/chair.jpg"
         alt="Muuto chair"
         style="object-position: center 55%"
       />

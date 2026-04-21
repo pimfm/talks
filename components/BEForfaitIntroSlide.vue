@@ -3,35 +3,35 @@
     <div class="bg-grid" />
     <div class="orb" />
     <div class="slide-inner">
-      <div class="eyebrow">SECTIE 01</div>
-      <h2 class="title">1. Forfaitaire Beroepskosten</h2>
+      <div class="eyebrow">SECTION 01</div>
+      <h2 class="title">1. Sociale Bijdragen</h2>
       <p class="description">
-        Een forfaitaire aftrek van <strong>30% van het netto beroepsinkomen</strong> voor Belgische zelfstandigen —
-        zodat ze minder personenbelasting betalen.
+        Belgian self-employed pay mandatory <strong>social contributions</strong> of 20.5% of their net professional income —
+        deducted before income tax is calculated.
       </p>
 
       <div class="requirement-box">
-        <div class="req-label">Vereiste</div>
-        <div class="req-text">Alleen van toepassing als je <strong>ingeschreven bent</strong> als zelfstandige bij een sociaal verzekeringsfonds (KBO)</div>
+        <div class="req-label">Threshold</div>
+        <div class="req-text">For <strong>bijberoep</strong> (secondary occupation): contributions are only owed when annual income exceeds <strong>€ 1,922</strong></div>
       </div>
 
       <div class="cap-row">
         <div class="cap-item">
-          <div class="cap-label">Tarief</div>
-          <div class="cap-value">30%</div>
-          <div class="cap-sub">van netto beroepsinkomen</div>
+          <div class="cap-label">Rate</div>
+          <div class="cap-value">20.5%</div>
+          <div class="cap-sub">of net professional income</div>
         </div>
         <div class="cap-divider" />
         <div class="cap-item">
-          <div class="cap-label">Maximum (2026)</div>
-          <div class="cap-value">€ 5.870</div>
-          <div class="cap-sub">jaarlijks geïndexeerd</div>
+          <div class="cap-label">Bijberoep threshold</div>
+          <div class="cap-value">€ 1,922</div>
+          <div class="cap-sub">below this → no contributions</div>
         </div>
         <div class="cap-divider" />
         <div class="cap-item">
-          <div class="cap-label">Sociale bijdragen</div>
-          <div class="cap-value">20,5%</div>
-          <div class="cap-sub">eerst aftrekken van bruto</div>
+          <div class="cap-label">Hoofdberoep</div>
+          <div class="cap-value">Always due</div>
+          <div class="cap-sub">minimum flat if income too low</div>
         </div>
       </div>
     </div>
@@ -93,6 +93,6 @@
   background: rgba(30,58,95,0.5);
 }
 .cap-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #475569; }
-.cap-value { font-size: 26px; font-weight: 700; color: #a855f7; letter-spacing: -0.02em; }
+.cap-value { font-size: 24px; font-weight: 700; color: #a855f7; letter-spacing: -0.02em; }
 .cap-sub { font-size: 11px; color: #475569; }
 </style>

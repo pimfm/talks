@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class BEZelfstandigeInput(
     val fiscalYear: Int,
     val brutoInkomen: Long,
-    val kboGeregistreerd: Boolean = true,
+    val status: String = "hoofdberoep",
     val investering: Long? = null,
     val investeringsType: String? = null
 )
@@ -32,7 +32,6 @@ data class BEZelfstandigeReport(
 
 object BETaxCalculator {
 
-    // Tax-free basic allowance (belastingvrije som), indexed annually.
     context(year: FiscalYear)
     fun belastingvrijeSom(): Long = when (year) {
         is fm.pim.tax.FY2022 -> 9_270L
@@ -44,22 +43,23 @@ object BETaxCalculator {
 
     fun calculate(input: BEZelfstandigeInput): BEZelfstandigeReport {
         val year = fiscalYearOf(input.fiscalYear)
+        val beroepsStatus = if (input.status == "bijberoep") Bijberoep else Hoofdberoep
         val errors = mutableListOf<String>()
 
         return with(year) {
-            val socialeBijdragen = berekenSocialeBijdragen(input.brutoInkomen)
-            val nettoNaBijdragen = (input.brutoInkomen - socialeBijdragen).coerceAtLeast(0L)
-
-            val forfait = either<BETaxError, Long> {
-                forfaitaireBeroepskosten(nettoNaBijdragen, input.kboGeregistreerd)
+            val socialeBijdragen = either<BETaxError, Long> {
+                berekenSocialeBijdragen(input.brutoInkomen, beroepsStatus)
             }.fold(
                 ifLeft = {
-                    errors.add("GeenKBORegistratie: niet erkend als zelfstandige")
+                    if (it is BijdragenNietVerschuldigd)
+                        errors.add("BijdragenNietVerschuldigd: income €${it.inkomen} below threshold €${it.drempel}")
                     0L
                 },
                 ifRight = { it }
             )
 
+            val nettoNaBijdragen = (input.brutoInkomen - socialeBijdragen).coerceAtLeast(0L)
+            val forfait = forfaitaireBeroepskosten(nettoNaBijdragen)
             val vrijeSom = belastingvrijeSom()
             val belastbaar = (nettoNaBijdragen - forfait - vrijeSom).coerceAtLeast(0L)
 

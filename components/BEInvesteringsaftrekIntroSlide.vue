@@ -3,29 +3,29 @@
     <div class="bg-grid" />
     <div class="orb" />
     <div class="slide-inner">
-      <div class="eyebrow">SECTIE 02</div>
+      <div class="eyebrow">SECTION 02</div>
       <h2 class="title">2. Gewone Investeringsaftrek</h2>
       <p class="description">
-        Een Belgische aftrek voor zelfstandigen op de waarde van kwalificerende bedrijfsinvesteringen —
-        zodat ze minder belasting betalen op hun winst.
+        A Belgian deduction for self-employed on the value of qualifying business investments —
+        reducing taxable profit.
       </p>
 
       <div class="twist-box">
         <div class="twist-label">Twist</div>
-        <div class="twist-text">De gewone investeringsaftrek werd <strong>afgeschaft vanaf boekjaar 2024</strong> — vervangen door de verhoogde investeringsaftrek met hogere tarieven (20–40%)</div>
+        <div class="twist-text">The <em>gewone investeringsaftrek</em> was <strong>abolished from fiscal year 2024</strong> — replaced by the <em>verhoogde investeringsaftrek</em> with significantly higher rates (20–40%)</div>
       </div>
 
       <div class="rates-row">
         <div class="rate-card old">
-          <div class="rate-era">≤ FJ2023 <span class="era-sub">oud stelsel</span></div>
+          <div class="rate-era">≤ FY2023 <span class="era-sub">old system</span></div>
           <div class="rate-val">8%</div>
-          <div class="rate-desc">Gewone aftrek — vlak tarief op alle kwalificerende investeringen</div>
+          <div class="rate-desc">Flat rate on all qualifying investments</div>
         </div>
         <div class="arrow-col">→</div>
         <div class="rate-card new">
-          <div class="rate-era">FJ2024+ <span class="era-sub">nieuw stelsel</span></div>
+          <div class="rate-era">FY2024+ <span class="era-sub">new system</span></div>
           <div class="rate-val">20–40%</div>
-          <div class="rate-desc">Verhoogde aftrek — 40% voor digitalisering &amp; energie, 20% voor basis</div>
+          <div class="rate-desc">40% for digitalisation &amp; energy, 20% for all other qualifying investments</div>
         </div>
       </div>
     </div>
@@ -55,6 +55,7 @@
 }
 .twist-text { font-size: 15px; color: #cbd5e1; line-height: 1.5; }
 .twist-text strong { color: #fca5a5; font-weight: 700; }
+.twist-text em { color: #e2e8f0; font-style: normal; font-weight: 600; }
 
 .rates-row { display: flex; align-items: center; gap: 16px; }
 .rate-card { flex: 1; border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }

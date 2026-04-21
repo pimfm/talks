@@ -18,14 +18,14 @@ const s2 = state(1)
     <div class="orb" />
     <div class="slide-inner">
       <div class="eyebrow">AGENDA</div>
-      <h2 class="title">Wat we vandaag <span class="accent">behandelen</span></h2>
+      <h2 class="title">What we'll <span class="accent">cover today</span></h2>
       <div class="sections">
 
         <div class="section-card" :class="s1">
           <div class="section-number">01</div>
           <div class="section-body">
-            <div class="section-name">Forfaitaire Beroepskosten</div>
-            <div class="section-desc">Hoe Arrow's Raise DSL domeinfouten in het typesysteem brengt</div>
+            <div class="section-name">Sociale Bijdragen</div>
+            <div class="section-desc">How Arrow's Raise DSL brings domain errors into the type system — using Belgium's social contributions threshold</div>
           </div>
           <div class="section-tag">Raise DSL</div>
         </div>
@@ -34,7 +34,7 @@ const s2 = state(1)
           <div class="section-number">02</div>
           <div class="section-body">
             <div class="section-name">Investeringsaftrek <span class="section-name-sub">Gewone → Verhoogde</span></div>
-            <div class="section-desc">Hoe contextparameters helpen als belastingregels wegvallen of veranderen</div>
+            <div class="section-desc">How context parameters enforce which fiscal year a law applies to — and when it's abolished</div>
           </div>
           <div class="section-tag">Context Parameters</div>
         </div>

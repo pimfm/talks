@@ -184,10 +184,10 @@ defaults:
 </style>
 
 <!--
-Hallo iedereen, bedankt dat jullie er zijn.
+Hello everyone, thank you for being here.
 
-* Hallo
-* Bedankt
+* Hello
+* Thank you
 * Kotlin community
 -->
 
@@ -199,16 +199,17 @@ clicks: 6
 <AboutSlide :clicks="$clicks" />
 
 <!--
-Als we elkaar nog niet kennen: ik ben Pim, software engineer voor zo'n 10 jaar, en Kotlin developer voor zo'n 6 jaar.
+In case we haven't met: I'm Pim, software engineer for about 10 years, and Kotlin developer for about 6 years.
 
-Ik werk bij Flock, een van de sponsors van vandaag.
+I work at Flock, one of today's sponsors.
 -->
 
 ---
 layout: none
+clicks: 1
 ---
 
-<TaxTitleSlide />
+<TaxSystemTransitionSlide :clicks="$clicks" />
 
 ---
 layout: none
@@ -218,9 +219,9 @@ clicks: 1
 <BEAgendaSlide :clicks="$clicks" />
 
 <!--
-De forfaitaire beroepskosten zijn een forfaitaire aftrek voor Belgische zelfstandigen — tot 30% van het netto beroepsinkomen, geplafonneerd op €5.870. Maar deze aftrek is alleen van toepassing als je voldoet aan bepaalde vereisten. We verkennen 2 types zelfstandigen en hoe deze regel op hen van toepassing is.
+Sociale bijdragen are Belgium's social contributions for the self-employed — 20.5% of net professional income. For bijberoep (secondary occupation), there's a threshold: below €1,922/year, nothing is owed. We explore 2 types of self-employed and how this rule applies to them.
 
-Dan hebben we de gewone investeringsaftrek, die een vlak tarief van 8% toepaste op kwalificerende investeringen. Maar er is een twist: de regel werd afgeschaft vanaf boekjaar 2024 en vervangen door een nieuw stelsel met hogere tarieven.
+Then we have the gewone investeringsaftrek, which applied a flat 8% rate on qualifying investments. But there's a twist: the rule was abolished from fiscal year 2024 and replaced by a new system with higher rates.
 -->
 
 ---
@@ -244,87 +245,72 @@ clicks: 10
 const beStates = [
   {
     focused: 'richard',
-    code: `val brutoInkomen = 800.euro
-val forfait = forfaitaireBeroepskosten(
+    code: `val inkomen = 800.euro    // bijberoep income
+val bijdragen = berekenSocialeBijdragen(
     nettoInkomen = 800,
-    kboGeregistreerd = false
+    status = Bijberoep
 )
 
-forfait // ???`,
+// bijdragen // ???`,
   },
   {
     focused: 'laura',
-    code: `val brutoInkomen = 88_000.euro
-val bijdragen = berekenSocialeBijdragen(88_000)
-// bijdragen = 18.040
-
-val forfait = forfaitaireBeroepskosten(
-    nettoInkomen = 88_000 - bijdragen,
-    kboGeregistreerd = true
+    code: `val bijdragen = berekenSocialeBijdragen(
+    nettoInkomen = 88_000,
+    status = Hoofdberoep
 )
-
-forfait // € 5.870 (cap bereikt)`,
+// bijdragen = € 18,040 (20.5%)`,
   },
   {
     focused: 'both',
-    code: `fun forfaitaireBeroepskosten(
+    code: `fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
+    status: BeroepsStatus
 ): Long {
-    if (!kboGeregistreerd) {
-        return 0L // geen aftrek
+    if (status is Bijberoep && nettoInkomen < 1_922) {
+        return 0L // below threshold
     }
-
-    return minOf(
-        (nettoInkomen * 0.30).toLong(),
-        5870L
-    )
+    return (nettoInkomen * 0.205).toLong()
 }`,
   },
   {
     focused: 'richard',
-    code: `fun forfaitaireBeroepskosten(
+    code: `fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
+    status: BeroepsStatus
 ): Long {
-    if (!kboGeregistreerd) {
-        throw GeenKBORegistratie(nettoInkomen)
+    if (status is Bijberoep && nettoInkomen < BIJBEROEP_DREMPEL) {
+        throw BijdragenNietVerschuldigd(nettoInkomen)
     }
-
-    return minOf(
-        (nettoInkomen * 0.30).toLong(),
-        5870L
-    )
+    return (nettoInkomen * 0.205).toLong()
 }`,
   },
   {
     focused: 'richard',
-    code: `val forfait = try {
-    forfaitaireBeroepskosten(
+    code: `val bijdragen = try {
+    berekenSocialeBijdragen(
         nettoInkomen = 800,
-        kboGeregistreerd = false
+        status = Bijberoep
     )
-} catch (e: GeenKBORegistratie) {
-    info("Niet ingeschreven als zelfstandige.")
+} catch (e: BijdragenNietVerschuldigd) {
+    info("Below bijberoep threshold.")
     0L
-}
-
-forfait // 0`,
+}`,
   },
   {
     focused: 'both',
-    code: `fun forfaitaireBeroepskosten(
+    code: `fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
+    status: BeroepsStatus
 ): Long {
     // ...
 }`,
   },
   {
     focused: 'both',
-    code: `fun forfaitaireBeroepskosten(
+    code: `fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
+    status: BeroepsStatus
 ): Long {
     // ...
 }`,
@@ -333,10 +319,10 @@ forfait // 0`,
   },
   {
     focused: 'both',
-    code: `fun forfaitaireBeroepskosten(
+    code: `fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
-): Either<GeenKBORegistratie, Long> {
+    status: BeroepsStatus
+): Either<BijdragenNietVerschuldigd, Long> {
     // ...
 }`,
     quote: 'Make illegal states unrepresentable',
@@ -344,39 +330,37 @@ forfait // 0`,
   },
   {
     focused: 'both',
-    code: `context(raise: Raise<GeenKBORegistratie>, year: FiscalYear)
-fun forfaitaireBeroepskosten(
+    code: `context(raise: Raise<BijdragenNietVerschuldigd>, year: FiscalYear)
+fun berekenSocialeBijdragen(
     nettoInkomen: Long,
-    kboGeregistreerd: Boolean
+    status: BeroepsStatus
 ): Long {
-    if (!kboGeregistreerd) {
-        raise(GeenKBORegistratie(nettoInkomen))
+    if (status is Bijberoep) {
+        ensure(nettoInkomen >= BIJBEROEP_DREMPEL) {
+            BijdragenNietVerschuldigd(nettoInkomen)
+        }
     }
-
-    return minOf(
-        (nettoInkomen * 0.30).toLong(),
-        forfaitaireBeroepskostenCap()
-    )
+    return (nettoInkomen * 0.205).toLong()
 }`,
   },
   {
     focused: 'richard',
-    code: `val forfait = recover({
-    forfaitaireBeroepskosten(
+    code: `val bijdragen = recover({
+    berekenSocialeBijdragen(
         nettoInkomen = 800,
-        kboGeregistreerd = false
+        status = Bijberoep
     )
-}) { _: GeenKBORegistratie ->
-    info("Niet ingeschreven als zelfstandige.")
+}) { _: BijdragenNietVerschuldigd ->
+    info("Below bijberoep threshold.")
     0L
 }`,
   },
   {
     focused: 'both',
-    code: `fun forfaitaireBeroepskosten(
-  nettoInkomen: Long,
-  kboGeregistreerd: Boolean
-): Long | GeenKBORegistratie {
+    code: `fun berekenSocialeBijdragen(
+    nettoInkomen: Long,
+    status: BeroepsStatus
+): Long | BijdragenNietVerschuldigd {
     // ...
 }`,
     note: 'Coming to Kotlin 2.4 as a Beta!',
@@ -387,23 +371,23 @@ fun forfaitaireBeroepskosten(
 <CharacterCodeSlide :clicks="$clicks" :states="beStates" />
 
 <!--
-Richard werkt als DJ als bijberoep. Dit jaar verdiende hij maar €800. Hij is niet ingeschreven als zelfstandige bij een sociaal verzekeringsfonds — geen KBO-registratie.
+Richard works as a DJ as bijberoep (secondary occupation). This year he only earned €800. Since he's bijberoep, the threshold applies: €1,922/year. Below that, no social contributions are owed.
 
 [click]
 
-Laura is een full-time marketing consultant als hoofdberoep. Haar bruto-inkomen is €88.000. Ze betaalt eerst sociale bijdragen: 20,5% = €18.040. Na aftrek van de sociale bijdragen: €69.960. De forfaitaire beroepskosten: min(30% × €69.960, €5.870) = €5.870.
+Laura is a full-time marketing consultant (hoofdberoep). No threshold for hoofdberoep. €88,000 × 20.5% = €18,040 in social contributions.
 
 [click]
 
-Er zit hier een impliciete businessregel. Als de KBO-registratie niet aanwezig is, retourneren we 0 — geen aftrek.
+There's an implicit business rule here. If bijberoep income is below €1,922, we return 0 — no contributions owed.
 
 [click]
 
-We kunnen dit expliciet maken door een exceptie te gooien. Maar let op — deze fout is niet zichtbaar in de functiesignatuur.
+We can make this explicit by throwing an exception. But note — this error is not visible in the function signature.
 
 [click]
 
-En hier zie je hoe dat eruitziet vanuit Richard's perspectief — een try/catch die terugvalt op 0 als de exceptie wordt gegoooid.
+And here's how that looks from Richard's perspective — a try/catch that falls back to 0 when the exception is thrown.
 -->
 
 ---
@@ -553,39 +537,39 @@ with(FY2024) { with(NL) {
 <CharacterCodeSlide :clicks="$clicks" :states="invStates" />
 
 <!--
-Laura's investering in 2023: €6.500. De gewone investeringsaftrek geeft haar €520 — 8% van €6.500.
+Laura's investment in 2023: €6,500. The gewone investeringsaftrek gives her €520 — 8% of €6,500.
 
 [click]
 
-Hier is de basisimplementatie. Het Belgische tarief was vlak: 8%. Eenvoudig genoeg.
+Here's the basic implementation. The Belgian rate was flat: 8%. Simple enough.
 
 [click]
 
-Maar belastingregels veranderen. Hoe gaan we om met het feit dat de gewone aftrek afgeschaft wordt?
+But tax rules change. How do we handle the fact that the gewone aftrek is abolished?
 
 [click]
 
-Contextparameters lossen dit op. Declareer het boekjaar eenmalig bovenaan — het vloeit door de hele aanroepketen zonder threading.
+Context parameters solve this. Declare the fiscal year once at the top — it flows through the entire call chain without threading.
 
 [click]
 
-Nu geeft hetzelfde boekjaar hetzelfde resultaat. Maar er is nog geen compilatiefout bij FY2024.
+Same year, same result. But there's no compile error yet for FY2024.
 
 [click]
 
-Hier is het sleutelinzicht. De gewone investeringsaftrek is afgeschaft vanaf FJ2024. Door het contexttype te veranderen van FiscalYear naar het specifieke FY2023-type, coderen we de wet in het typesysteem.
+Here's the key insight. The gewone investeringsaftrek is abolished from FY2024. By changing the context type from FiscalYear to the specific FY2023 type, we encode the law in the type system.
 
 [click]
 
-De aftrek aanroepen in FJ2024 is nu een compilatiefout. De functie bestaat letterlijk niet voor dat jaar.
+Calling the deduction in FY2024 is now a compile error. The function literally doesn't exist for that year.
 
 [click]
 
-We voegen het nieuw stelsel toe als een aparte functie. De verhoogde investeringsaftrek bestaat alleen voor VerhoogdeInvesteringsaftrekJaar (FY2024+).
+We add the new system as a separate function. The verhoogde investeringsaftrek only exists for VerhoogdeInvesteringsaftrekJaar (FY2024+).
 
 [click]
 
-Met FY2023 en BE in scope: €520 (8%). Met FY2024 en BE: €2.600 (40% digitalisering) — beter dan de Nederlandse KIA van €1.820!
+With FY2023 and BE in scope: €520 (8%). With FY2024 and BE: €2,600 (40% digitalisation) — better than the Dutch KIA of €1,820!
 -->
 
 ---
@@ -619,7 +603,7 @@ layout: none
 <ThankYouSlide />
 
 <!--
-Bedankt! Ik beantwoord graag jullie vragen.
+Thank you! Happy to take your questions.
 -->
 
 ---
@@ -632,11 +616,11 @@ clicks: 2
 <!--
 [click]
 
-Met deze type-veiligheid hoop ik dat we ooit het Belgische belastingstelsel open-source kunnen maken — zodat berekeningen programmatisch beschikbaar zijn en door iedereen gecontroleerd kunnen worden.
+With this type safety, I hope we can one day open-source the Belgian tax system — making calculations programmatically available and verifiable by anyone.
 
 [click]
 
-En voor jullie — ik hoop dat concepten zoals Arrow Raise DSL, Contextparameters en Rich Errors helpen om de types in jullie projecten rijker te maken, en meer flows door de compiler te laten afhandelen.
+And for you — I hope concepts like Arrow Raise DSL, Context Parameters, and Rich Errors help you enrich the types in your own projects, and let the compiler handle more flows.
 -->
 
 ---

@@ -5,34 +5,34 @@
     <div class="orb orb-cyan" />
     <div class="slide-inner">
       <div class="eyebrow">TAKEAWAYS</div>
-      <h1 class="title">Samenvatting</h1>
+      <h1 class="title">Summary</h1>
       <div class="points">
         <div class="point">
           <div class="point-num">01</div>
           <div class="point-content">
-            <div class="point-title">Contextparameters maken impliciete regels expliciet</div>
-            <div class="point-desc">Het boekjaar vloeit door je codebase zonder threading — en schendingen worden tijdens compilatie gevonden.</div>
+            <div class="point-title">Context parameters make implicit rules explicit</div>
+            <div class="point-desc">The fiscal year flows through your codebase without threading — violations caught at compile time.</div>
           </div>
         </div>
         <div class="point">
           <div class="point-num">02</div>
           <div class="point-content">
-            <div class="point-title">Arrow Raise vervangt excepties door getypeerde fouten</div>
-            <div class="point-desc">Domeinfouten zijn waarden, geen verrassingen. <code>GeenKBORegistratie</code> staat in de signatuur, niet verborgen.</div>
+            <div class="point-title">Arrow Raise replaces exceptions with typed errors</div>
+            <div class="point-desc">Domain errors are values, not surprises. <code>BijdragenNietVerschuldigd</code> is in the signature, not hidden.</div>
           </div>
         </div>
         <div class="point">
           <div class="point-num">03</div>
           <div class="point-content">
-            <div class="point-title">Afgeschafte regels worden compile-fouten</div>
-            <div class="point-desc">De gewone investeringsaftrek bestaat niet meer in FJ2024 — je kunt hem niet aanroepen. Het typesysteem is de wet.</div>
+            <div class="point-title">Abolished rules become compile errors</div>
+            <div class="point-desc">Gewone investeringsaftrek no longer exists in FY2024 — you can't call it. The type system is the law.</div>
           </div>
         </div>
         <div class="point">
           <div class="point-num">04</div>
           <div class="point-content">
-            <div class="point-title">Elke berekeningsstap is traceerbaar</div>
-            <div class="point-desc">Van sociale bijdragen tot schijven — elke aftrek, elk tarief, auditeerbaar by design.</div>
+            <div class="point-title">Every calculation step is traceable</div>
+            <div class="point-desc">From sociale bijdragen to tax brackets — every deduction, every rate, auditable by design.</div>
           </div>
         </div>
       </div>
