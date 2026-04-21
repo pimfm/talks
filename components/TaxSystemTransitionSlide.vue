@@ -36,7 +36,6 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
           <div class="logo-wrap">
             <img src="/fod-financien.png" alt="FOD Financiën" class="tax-logo fod-logo" />
           </div>
-          <div class="country-tag be-tag">🇧🇪 Belgium</div>
         </div>
       </div>
     </Transition>
