@@ -279,7 +279,7 @@ val bijdragen = berekenSocialeBijdragen(
     nettoInkomen: Long,
     status: BeroepsStatus
 ): Long {
-    if (status is Bijberoep && nettoInkomen < BIJBEROEP_DREMPEL) {
+    if (status is Bijberoep && nettoInkomen < 1_922) {
         throw BijdragenNietVerschuldigd(nettoInkomen)
     }
     return (nettoInkomen * 0.205).toLong()
