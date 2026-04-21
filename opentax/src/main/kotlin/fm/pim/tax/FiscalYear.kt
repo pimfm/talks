@@ -1,11 +1,15 @@
 package fm.pim.tax
 
 sealed interface FiscalYear
+
+// Marker for years where the Belgian verhoogde investeringsaftrek applies (FY2024+).
+sealed interface VerhoogdeInvesteringsaftrekJaar : FiscalYear
+
 data object FY2022 : FiscalYear
 data object FY2023 : FiscalYear
-data object FY2024 : FiscalYear
-data object FY2025 : FiscalYear
-data object FY2026 : FiscalYear
+data object FY2024 : FiscalYear, VerhoogdeInvesteringsaftrekJaar
+data object FY2025 : FiscalYear, VerhoogdeInvesteringsaftrekJaar
+data object FY2026 : FiscalYear, VerhoogdeInvesteringsaftrekJaar
 
 fun fiscalYearOf(year: Int): FiscalYear = when (year) {
     2022 -> FY2022
