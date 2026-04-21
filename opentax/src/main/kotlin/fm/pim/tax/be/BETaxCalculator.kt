@@ -41,13 +41,14 @@ object BETaxCalculator {
         is fm.pim.tax.FY2026 -> 11_200L
     }
 
+    @Suppress("LongMethod")
     fun calculate(input: BEZelfstandigeInput): BEZelfstandigeReport {
         val year = fiscalYearOf(input.fiscalYear)
         val beroepsStatus = if (input.status == "bijberoep") Bijberoep else Hoofdberoep
         val errors = mutableListOf<String>()
 
         return with(year) {
-            val socialeBijdragen = either<BETaxError, Long> {
+            val socialeBijdragen = either<TaxError, Long> {
                 berekenSocialeBijdragen(input.brutoInkomen, beroepsStatus)
             }.fold(
                 ifLeft = {

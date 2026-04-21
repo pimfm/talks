@@ -8,25 +8,24 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
     <div class="orb orb-purple" />
     <div class="orb orb-cyan" />
 
-    <!-- NL panel: exits left on click 1 -->
-    <Transition name="slide-out-left">
+    <!-- NL panel: launches out on click 1 -->
+    <Transition name="nl-exit">
       <div v-if="props.clicks === 0" class="panel">
         <div class="content">
           <h1 class="title">
             <span class="line-1">The Dutch</span>
             <span class="line-2">Tax System</span>
           </h1>
-          <div class="divider" />
+          <div class="divider nl-divider" />
           <div class="logo-wrap">
-            <img src="/belastingdienst.png" alt="Belastingdienst" class="tax-logo" />
+            <img src="/belastingdienst.png" alt="Belastingdienst" class="tax-logo nl-logo" />
           </div>
-          <div class="country-tag">🇳🇱 Netherlands</div>
         </div>
       </div>
     </Transition>
 
-    <!-- BE panel: enters from right on click 1 -->
-    <Transition name="slide-in-right">
+    <!-- BE panel: materialises from centre on click 1 -->
+    <Transition name="be-enter">
       <div v-if="props.clicks >= 1" class="panel">
         <div class="content">
           <h1 class="title">
@@ -35,7 +34,7 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
           </h1>
           <div class="divider be-divider" />
           <div class="logo-wrap">
-            <img src="/fod-financien.svg" alt="FOD Financiën" class="tax-logo fod-logo" />
+            <img src="/fod-financien.png" alt="FOD Financiën" class="tax-logo fod-logo" />
           </div>
           <div class="country-tag be-tag">🇧🇪 Belgium</div>
         </div>
@@ -94,7 +93,6 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
   to   { opacity: 0.55; transform: scale(1.08); }
 }
 
-/* Panel — sits on top of background, centered */
 .panel {
   position: absolute;
   inset: 0;
@@ -136,12 +134,12 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
   background-clip: text;
   letter-spacing: -0.03em;
   display: block;
-  animation: shimmer 4s ease-in-out infinite alternate;
   background-size: 200% 200%;
+  animation: shimmer 4s ease-in-out infinite alternate;
 }
 
 .be-gradient {
-  background: linear-gradient(135deg, #1a1a1a 0%, #FDDA24 40%, #EF3340 100%);
+  background: linear-gradient(135deg, #888 0%, #FDDA24 45%, #EF3340 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -155,8 +153,11 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
 .divider {
   width: 64px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #7c3aed, #ec4899, transparent);
   margin: 24px auto;
+}
+
+.nl-divider {
+  background: linear-gradient(90deg, transparent, #7c3aed, #ec4899, transparent);
 }
 
 .be-divider {
@@ -171,51 +172,57 @@ const props = defineProps({ clicks: { type: Number, default: 0 } })
 }
 
 .tax-logo {
-  width: 220px;
   height: auto;
+}
+
+.nl-logo {
+  width: 220px;
   filter: brightness(2.5) saturate(2) drop-shadow(0 0 24px rgba(0, 180, 210, 0.65));
 }
 
 .fod-logo {
-  width: 280px;
-  filter: none;
-  drop-shadow: none;
-  opacity: 0.9;
+  width: 300px;
+  filter: invert(1) brightness(0.88) drop-shadow(0 0 20px rgba(253, 218, 36, 0.35));
 }
 
 .country-tag {
   font-size: 13px;
   font-weight: 600;
-  color: #475569;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 16px;
-  border: 1px solid rgba(30,58,95,0.5);
   border-radius: 20px;
-  background: rgba(30,58,95,0.2);
 }
 
 .be-tag {
-  border-color: rgba(253,218,36,0.3);
-  background: rgba(253,218,36,0.05);
-  color: rgba(253,218,36,0.7);
+  border: 1px solid rgba(253,218,36,0.35);
+  background: rgba(253,218,36,0.06);
+  color: rgba(253,218,36,0.75);
 }
 
-/* ── Slide-out-left transition (NL exits) ── */
-.slide-out-left-leave-active {
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+/* ── NL exit: catapults left and down with spin + blur ── */
+.nl-exit-leave-active {
+  transition:
+    transform 0.55s cubic-bezier(0.55, 0, 1, 0.45),
+    opacity   0.4s  ease,
+    filter    0.4s  ease;
 }
-.slide-out-left-leave-to {
-  transform: translateX(-110%);
+.nl-exit-leave-to {
+  transform: translateX(-140%) translateY(8%) rotate(-14deg) scale(0.6);
   opacity: 0;
+  filter: blur(12px);
 }
 
-/* ── Slide-in-right transition (BE enters) ── */
-.slide-in-right-enter-active {
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+/* ── BE enter: materialises from a focused point with spring bounce ── */
+.be-enter-enter-active {
+  transition:
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity   0.45s ease 0.15s,
+    filter    0.45s ease 0.15s;
 }
-.slide-in-right-enter-from {
-  transform: translateX(110%);
+.be-enter-enter-from {
+  transform: scale(0.45) translateY(24px);
   opacity: 0;
+  filter: blur(16px);
 }
 </style>

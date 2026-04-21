@@ -14,13 +14,13 @@ const val BIJBEROEP_DREMPEL: Long = 1_922L
 data class BijdragenNietVerschuldigd(
     val inkomen: Long,
     val drempel: Long = BIJBEROEP_DREMPEL
-) : BETaxError
+) : TaxError
 
 // Belgian mandatory social contributions for self-employed.
 // Rate: 20.5% of net professional income.
 // For bijberoep: raises BijdragenNietVerschuldigd if income is below the threshold.
 context(year: FiscalYear)
-fun Raise<BETaxError>.berekenSocialeBijdragen(
+fun Raise<TaxError>.berekenSocialeBijdragen(
     nettoInkomen: Long,
     status: BeroepsStatus
 ): Long {
